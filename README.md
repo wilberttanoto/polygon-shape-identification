@@ -11,7 +11,7 @@ If you don't have virtualenv installed in your system, you can download it from 
 ```
 3. Download and extract the code
 4. Go to the code folder
-5. Type this in the terminal to make virtualenv and install and the requirements
+5. Type this in the terminal to make virtualenv folder and install the requirements
 ```bash
 $ virtualenv flask
 $ source flask/bin/activate
