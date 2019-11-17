@@ -6,16 +6,16 @@ class CycleGraph(object):
     def getAllCyclyes(self):
         for edge in self.graph:
             for node in edge:
-                self.findNewCycles([node])
+                self.findCycles([node])
         
         return self.cycles
         
-    def findNewCycles(self, path):
+    def findCycles(self, path):
         start_node = path[0]
         next_node= None
         sub = []
 
-        #visit each edge and each node of each edge
+        # visit each edge and each node of each edge
         for edge in self.graph:
             node1, node2 = edge
             if start_node in edge:
@@ -28,19 +28,19 @@ class CycleGraph(object):
                     sub = [next_node]
                     sub.extend(path)
                     # explore extended path
-                    self.findNewCycles(sub);
-                elif len(path) > 2  and next_node == path[-1]:
+                    self.findCycles(sub);
+                elif len(path) > 2 and next_node == path[-1]:
                     # cycle found
-                    p = self.rotate_to_smallest(path);
+                    p = self.rotateToSmallest(path);
                     inv = self.invert(p)
                     if self.isNew(p) and self.isNew(inv):
                         self.cycles.append(p)
 
     def invert(self, path):
-        return self.rotate_to_smallest(path[::-1])
+        return self.rotateToSmallest(path[::-1]) # all items in the array, reversed
 
-    #  rotate cycle path such that it begins with the smallest node
-    def rotate_to_smallest(self, path):
+    # rotate cycle path such that it begins with the smallest node
+    def rotateToSmallest(self, path):
         n = path.index(min(path))
         return path[n:]+path[:n]
 

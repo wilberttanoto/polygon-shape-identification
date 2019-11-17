@@ -5,7 +5,8 @@ from cycle_graph import CycleGraph
 app = Flask(__name__)
 
 @app.route('/api/v1.0/check-shape/', methods=['POST'])
-def check_shape():
+def polygonShape():
+    # simple validation for the body JSON 
     if not request.json or not 'lines' in request.json:
         abort(400)
     
@@ -23,12 +24,22 @@ def check_shape():
     # init CyCleGraph Object
     cycle = CycleGraph(graph)
     for cy in cycle.getAllCyclyes():
+        vertices = []
+        # connecting each cycle..
+        for i,_ in enumerate(cy):
+            # need to check length of array less than 2, cos edge = 2 node points
+            if (len(cy[i:i+2]) < 2):
+                v = [cy[i]] + [cy[0]]
+            else:
+                v = cy[i:i+2]
+            vertices.append(v)    
+
         shapes.append({
             "name" : shape_type[str(len(cy))],
-            "vertices" : cy
+            "vertices" : vertices
         })
 
-    return jsonify({"shapes" : shapes})
+    return jsonify(shapes=shapes)
 
 if __name__ == '__main__':
     app.run(debug=False)
