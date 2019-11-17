@@ -1,5 +1,8 @@
 # list of gitignore taken from https://github.com/github/gitignore/blob/master/Python.gitignore
 
+# virtual env
+flask/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
